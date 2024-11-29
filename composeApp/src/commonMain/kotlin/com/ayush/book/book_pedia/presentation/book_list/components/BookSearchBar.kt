@@ -26,7 +26,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import bookpedia.composeapp.generated.resources.Res
 import bookpedia.composeapp.generated.resources.close_hint
-import bookpedia.composeapp.generated.resources.search_books
+import bookpedia.composeapp.generated.resources.search_hint
 import com.ayush.book.core.presentation.DarkBlue
 import com.ayush.book.core.presentation.DesertWhite
 import com.ayush.book.core.presentation.SandYellow
@@ -55,7 +55,7 @@ fun BookSearchBar(
                 focusedBorderColor = SandYellow
             ),
             placeholder = {
-                Text(stringResource(Res.string.search_books))
+                Text(stringResource(Res.string.search_hint))
             },
             leadingIcon = {
                 Icon(
