@@ -5,6 +5,7 @@ import com.ayush.book.book_pedia.data.network.RemoteBookDataSource
 import com.ayush.book.book_pedia.data.repository.DefaultBookRepository
 import com.ayush.book.book_pedia.domain.BookRepository
 import com.ayush.book.book_pedia.presentation.SelectedBookViewModel
+import com.ayush.book.book_pedia.presentation.book_detail.BookDetailViewModel
 import com.ayush.book.book_pedia.presentation.book_list.BookListViewmodel
 import com.ayush.book.core.data.HttpClientFactory
 import org.koin.core.module.Module
@@ -25,5 +26,6 @@ val sharedModule = module {
 
     viewModelOf(::BookListViewmodel)
     viewModelOf(::SelectedBookViewModel)
+    viewModelOf(::BookDetailViewModel)
 
 }
