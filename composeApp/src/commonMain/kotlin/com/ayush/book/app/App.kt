@@ -21,6 +21,9 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.ayush.book.book_pedia.presentation.SelectedBookViewModel
+import com.ayush.book.book_pedia.presentation.book_detail.BookDetailAction
+import com.ayush.book.book_pedia.presentation.book_detail.BookDetailScreenRoot
+import com.ayush.book.book_pedia.presentation.book_detail.BookDetailViewModel
 import com.ayush.book.book_pedia.presentation.book_list.BookListScreenRoot
 import com.ayush.book.book_pedia.presentation.book_list.BookListViewmodel
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -61,30 +64,23 @@ fun App(
                 composable<Route.BookDetail> {
                     val selectedBookViewModel =
                         it.sharedKoinViewModel<SelectedBookViewModel>(navController)
-
+                    val viewModel = koinViewModel<BookDetailViewModel>()
                     val selectedBook by selectedBookViewModel.selectedBook.collectAsStateWithLifecycle()
-                    if (selectedBook != null) {
-                        Column { Text(
-                            text = "Title: ${selectedBook!!.title}",
-                            style = MaterialTheme.typography.headlineMedium,
-                            modifier = Modifier.padding(bottom = 8.dp)
-                        )
-                            Text(
-                                text = "Author: ${selectedBook!!.authors}",
-                                style = MaterialTheme.typography.bodyLarge,
-                                modifier = Modifier.padding(bottom = 4.dp)
-                            )
-                            Text(
-                                text = "Description: ${selectedBook!!.description}",
-                                style = MaterialTheme.typography.bodyMedium,
-                                modifier = Modifier.padding(bottom = 8.dp)
-                            ) }
-                    } else {
-                        Text(
-                            text = "No book selected",
-                            style = MaterialTheme.typography.bodyLarge
-                        )
+
+                    LaunchedEffect(selectedBook) {
+                        selectedBook?.let {
+                            viewModel.onAction(BookDetailAction.OnSelectedBookChange(it))
+                        }
                     }
+                    BookDetailScreenRoot(
+                        viewModel = viewModel,
+                        onBackClick = {
+                            navController.navigateUp()
+                        },
+//                        onFavoriteClick = {
+//                            selectedBookViewModel.onFavoriteClick()
+//                        }
+                    )
 
                 }
             }

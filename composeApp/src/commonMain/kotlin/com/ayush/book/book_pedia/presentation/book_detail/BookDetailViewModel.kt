@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.ayush.book.book_pedia.presentation.book_detail.components.BookDetailState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class BookDetailViewModel : ViewModel() {
     private val _state = MutableStateFlow(BookDetailState())
@@ -20,6 +21,11 @@ class BookDetailViewModel : ViewModel() {
             }
 
             is BookDetailAction.OnSelectedBookChange -> {
+                _state.update {
+                    it.copy(
+                        book = action.book
+                    )
+                }
 
             }
 
