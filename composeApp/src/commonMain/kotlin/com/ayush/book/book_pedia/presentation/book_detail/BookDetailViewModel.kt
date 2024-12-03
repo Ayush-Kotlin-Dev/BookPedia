@@ -9,6 +9,7 @@ import com.ayush.book.book_pedia.domain.BookRepository
 import com.ayush.book.core.domain.onSuccess
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
@@ -22,7 +23,7 @@ class BookDetailViewModel(
     private val _state = MutableStateFlow(BookDetailState())
     val state = _state
         .onStart {
-            observerFavoriteStatus()
+            observeFavoriteStatus()
             fetchBookDescription()
         }
         .stateIn(
@@ -57,15 +58,15 @@ class BookDetailViewModel(
         }
     }
 
-    private fun observerFavoriteStatus(){
-        bookRepository.isBookFavorite(bookId)
+    private fun observeFavoriteStatus() {
+        bookRepository
+            .isBookFavorite(bookId)
             .onEach { isFavorite ->
-                _state.update {
-                    it.copy(
-                        isFavorite = isFavorite
-                    )
-                }
+                _state.update { it.copy(
+                    isFavorite = isFavorite
+                ) }
             }
+            .launchIn(viewModelScope)
     }
 
     private fun fetchBookDescription() {
