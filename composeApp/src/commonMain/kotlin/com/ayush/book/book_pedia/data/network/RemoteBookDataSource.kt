@@ -1,6 +1,7 @@
 package com.ayush.book.book_pedia.data.network
 
 
+import com.ayush.book.book_pedia.data.dto.BookWorkDto
 import com.ayush.book.book_pedia.data.dto.SearchResponseDto
 import com.ayush.book.core.domain.Result
 import com.ayush.book.core.domain.DataError
@@ -9,5 +10,10 @@ interface RemoteBookDataSource {
         query: String,
         resultLimit: Int? = null
     ): Result<SearchResponseDto, DataError.Remote>
+
+    suspend fun getBookDetails(
+       bookWorkId : String
+    ): Result<BookWorkDto, DataError.Remote>
+
 
 }

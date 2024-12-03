@@ -6,8 +6,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.ayush.book.book_pedia.presentation.book_detail.components.BlurredImageBackground
-import com.ayush.book.book_pedia.presentation.book_detail.components.BookDetailState
-import com.ayush.book.book_pedia.presentation.book_list.BookListViewmodel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi

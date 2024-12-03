@@ -1,4 +1,4 @@
-package com.ayush.book.book_pedia.presentation.book_detail.components
+package com.ayush.book.book_pedia.presentation.book_detail
 
 import com.ayush.book.book_pedia.domain.Book
 

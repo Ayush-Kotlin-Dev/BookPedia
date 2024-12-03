@@ -1,5 +1,6 @@
 package com.ayush.book.book_pedia.data.network
 
+import com.ayush.book.book_pedia.data.dto.BookWorkDto
 import com.ayush.book.book_pedia.data.dto.SearchResponseDto
 import com.ayush.book.core.data.safeCall
 import com.ayush.book.core.domain.DataError
@@ -29,4 +30,13 @@ class KtorRemoteBookDataSource(
             }
         }
     }
+
+    override suspend fun getBookDetails(bookWorkId: String): Result<BookWorkDto, DataError.Remote> {
+        return safeCall<BookWorkDto> {
+            httpClient.get(
+                urlString = "$BASE_URL/works/$bookWorkId.json"
+            )
+        }
+    }
+
 }
