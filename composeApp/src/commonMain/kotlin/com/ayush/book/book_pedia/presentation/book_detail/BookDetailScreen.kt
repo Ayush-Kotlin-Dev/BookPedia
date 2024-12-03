@@ -2,7 +2,6 @@ package com.ayush.book.book_pedia.presentation.book_detail
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.ayush.book.book_pedia.presentation.book_detail.components.BlurredImageBackground
@@ -27,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import bookpedia.composeapp.generated.resources.Res
 import bookpedia.composeapp.generated.resources.description_unavailable
 import bookpedia.composeapp.generated.resources.languages
@@ -43,23 +43,21 @@ import kotlin.math.round
 @Composable
 fun BookDetailScreenRoot(
     viewModel: BookDetailViewModel,
-    onBackClick: () -> Unit,
-//    onFavoriteClick: () -> Unit
-){
-    val state by viewModel.state.collectAsState()
+    onBackClick: () -> Unit
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
     BookDetailScreen(
         state = state,
         onAction = { action ->
-            when ( action){
+            when(action) {
                 is BookDetailAction.OnBackClick -> onBackClick()
-                is BookDetailAction.OnSelectedBookChange -> viewModel.onAction(action)
                 else -> Unit
             }
             viewModel.onAction(action)
         }
     )
 }
-
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

@@ -1,5 +1,8 @@
 package com.ayush.book.di
 
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import com.ayush.book.book_pedia.data.database.DatabaseFactory
+import com.ayush.book.book_pedia.data.database.FavoriteBookDatabase
 import com.ayush.book.book_pedia.data.network.KtorRemoteBookDataSource
 import com.ayush.book.book_pedia.data.network.RemoteBookDataSource
 import com.ayush.book.book_pedia.data.repository.DefaultBookRepository
@@ -23,7 +26,12 @@ val sharedModule = module {
     singleOf(::KtorRemoteBookDataSource).bind<RemoteBookDataSource>()
     singleOf(::DefaultBookRepository).bind<BookRepository>()
 
-
+    single {
+         get<DatabaseFactory>().create()
+             .setDriver(BundledSQLiteDriver())
+             .build()
+    }
+    single { get<FavoriteBookDatabase>().favoriteBookDao }
     viewModelOf(::BookListViewmodel)
     viewModelOf(::SelectedBookViewModel)
     viewModelOf(::BookDetailViewModel)
